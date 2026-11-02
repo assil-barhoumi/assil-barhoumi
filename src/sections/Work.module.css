@@ -1,0 +1,299 @@
+/* Filters */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.filterLabel {
+  margin-right: var(--space-3);
+  color: var(--muted);
+}
+
+.filter {
+  position: relative;
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  transition:
+    border-color 150ms ease,
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.filter:hover {
+  color: var(--ink);
+  border-color: var(--line-2);
+}
+
+.filter[aria-pressed='true'] {
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.count {
+  margin-left: 0.25em;
+  color: var(--muted);
+  font-size: 0.7em;
+}
+
+.filter[aria-pressed='true'] .count {
+  color: var(--accent-ink);
+}
+
+/* Spreads */
+
+.list {
+  display: grid;
+}
+
+.spread {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: var(--space-6);
+  padding-block: clamp(3rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--line);
+}
+
+/* The project list runs straight into the next section: no extra space below it. */
+section.section {
+  padding-bottom: 0;
+}
+
+/* The next section's own rule closes the list, so the last project needs no line or space below. */
+.spread:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.figure {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.figureLink {
+  display: block;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition:
+    border-color 300ms ease,
+    transform 500ms var(--ease-out),
+    box-shadow 500ms var(--ease-out);
+}
+
+/* While the pointer moves over it, follow quickly; on leaving, settle back slowly. */
+.figureLink[data-tilting] {
+  transition:
+    border-color 300ms ease,
+    transform 120ms linear,
+    box-shadow 300ms var(--ease-out);
+  box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.55);
+}
+
+/* The image's frame, cropped to the schematic's proportions. */
+.frame {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--line);
+}
+
+/* The image fills the frame edge to edge. */
+.cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Scroll-driven: the frame opens and the image drifts slightly (parallax). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .frame {
+      animation: frame-open linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 38%;
+    }
+
+    .cover {
+      scale: 1.1;
+      animation:
+        cover-settle linear both,
+        cover-drift linear both;
+      animation-timeline: view(), view();
+      animation-range:
+        entry 0% cover 45%,
+        cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes frame-open {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes cover-settle {
+  from {
+    scale: 1.28;
+  }
+  to {
+    scale: 1.1;
+  }
+}
+
+@keyframes cover-drift {
+  from {
+    translate: 0 -4%;
+  }
+  to {
+    translate: 0 4%;
+  }
+}
+
+/* A rendered scene is centred rather than anchored like a screenshot. */
+.spread:hover .figureLink {
+  border-color: var(--accent-line);
+}
+
+.body {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  color: var(--muted);
+}
+
+.number {
+  color: var(--accent-ink);
+}
+
+.title {
+  margin-top: var(--space-4);
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  font-weight: 350;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.titleLink {
+  text-decoration: none;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1px;
+  background-position: 0 92%;
+  background-repeat: no-repeat;
+  transition: background-size 500ms var(--ease-out);
+}
+
+.titleLink:hover,
+.spread:hover .titleLink {
+  background-size: 100% 1px;
+}
+
+.blurb {
+  margin-top: var(--space-5);
+  max-width: 38rem;
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: 1.55;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin-top: var(--space-6);
+}
+
+.cta {
+  translate: var(--mag-x, 0px) var(--mag-y, 0px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    translate 450ms var(--ease-out);
+}
+
+/* Magnetic (lib/magnetic.ts): follow the mouse quickly, spring back slowly. */
+.cta[data-magnetic] {
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    translate 120ms linear;
+}
+
+.cta:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.arrow {
+  transition: transform 250ms var(--ease-out);
+}
+
+.cta:hover .arrow,
+.spread:hover .arrow {
+  transform: translateX(4px);
+}
+
+.empty {
+  padding-block: var(--space-7);
+  color: var(--muted);
+}
+
+@media (min-width: 60rem) {
+  .spread {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  /* The image takes half the width; the text gets the other half, minus a gutter. */
+  .spread[data-side='left'] .figure {
+    grid-column: 1 / span 6;
+  }
+
+  .spread[data-side='left'] .body {
+    grid-column: 8 / -1;
+  }
+
+  .spread[data-side='right'] .figure {
+    grid-column: 7 / -1;
+    grid-row: 1;
+  }
+
+  .spread[data-side='right'] .body {
+    grid-column: 1 / span 5;
+    grid-row: 1;
+  }
+}

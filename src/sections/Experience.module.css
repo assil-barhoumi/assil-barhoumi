@@ -1,0 +1,202 @@
+.list {
+  border-bottom: 1px solid var(--line);
+}
+
+.entry {
+  row-gap: var(--space-4);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--line);
+}
+
+.when {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  align-items: baseline;
+  color: var(--muted);
+}
+
+.period {
+  color: var(--ink);
+}
+
+.body {
+  grid-column: 1 / -1;
+  min-width: 0;
+  max-width: 46rem;
+}
+
+.company {
+  font-size: clamp(1.625rem, 2.8vw, 2.25rem);
+  font-weight: 350;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+/* The internships at this company. With several, a thin timeline joins them. */
+.roles {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-5);
+}
+
+.roles[data-several] {
+  position: relative;
+  padding-left: 1.75rem;
+  view-timeline-name: --roles;
+}
+
+.roles[data-several]::before {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  bottom: 0.5rem;
+  left: 0.3rem;
+  border-left: 1px solid var(--line-2);
+}
+
+.role {
+  position: relative;
+  min-width: 0;
+}
+
+.roles[data-several] .role::before {
+  content: '';
+  position: absolute;
+  top: 0.3rem;
+  left: calc(-1.75rem + 0.3rem - 4.5px);
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.roles[data-several] .role:first-child::before {
+  background: var(--accent);
+}
+
+/* As the timeline scrolls into view, its line draws down and each dot pops in turn. */
+.roles[data-several]::before {
+  transform-origin: top center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .roles[data-several]::before {
+      animation: timeline-draw linear both;
+      animation-timeline: --roles;
+      animation-range: entry 10% cover 50%;
+    }
+
+    .roles[data-several] .role::before {
+      animation: timeline-dot linear both;
+      animation-timeline: --roles;
+      animation-range: entry 10% entry 60%;
+    }
+
+    .roles[data-several] .role:nth-child(2)::before {
+      animation-range: cover 30% cover 45%;
+    }
+
+    .roles[data-several] .role:nth-child(n + 3)::before {
+      animation-range: cover 40% cover 55%;
+    }
+  }
+}
+
+@keyframes timeline-draw {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes timeline-dot {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.rolePeriod {
+  margin-bottom: var(--space-2);
+  color: var(--ink);
+  font-size: var(--text-xs);
+}
+
+.title {
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: var(--space-3);
+  color: var(--accent-ink);
+}
+
+/* A middle dot after each part but the last, so a wrapped line never starts with one. */
+.metaPart:not(:last-child)::after {
+  content: '·';
+  margin-inline: 0.6em;
+  color: var(--muted);
+}
+
+.brief {
+  max-width: 40rem;
+  margin-top: var(--space-2);
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.titleLink {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 92%;
+  background-repeat: no-repeat;
+  transition: background-size 500ms var(--ease-out);
+}
+
+.titleLink:hover,
+.role:hover .titleLink {
+  background-size: 100% 1px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin-top: var(--space-3);
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  color: var(--accent-ink);
+}
+
+@media (min-width: 60rem) {
+  .when {
+    grid-column: 1 / span 3;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding-top: 0.6rem;
+  }
+
+  .body {
+    grid-column: 4 / -1;
+  }
+}

@@ -1,0 +1,222 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: var(--space-4) clamp(4rem, 9vw, 7rem);
+}
+
+/* Above the data field (components/DataField). */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* A journal-style masthead line. */
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  font-size: var(--text-2xs);
+  padding-block: var(--space-3);
+  border-block: 1px solid var(--line-2);
+  color: var(--muted);
+}
+
+.stage {
+  row-gap: clamp(3rem, 7vw, 4rem);
+  margin-top: clamp(2.5rem, 7vw, 5rem);
+}
+
+.text {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.name {
+  font-size: clamp(4.25rem, 11.5vw, 10.75rem);
+  font-weight: 300;
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  margin-left: -0.05em;
+}
+
+/* Each line slides up from behind a mask on load. */
+.line {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.14em 0.08em;
+  margin-block: -0.14em -0.08em;
+}
+
+.line > span {
+  display: inline-block;
+}
+
+/* Each letter rises from behind the mask, a beat after the one before it. */
+.char {
+  display: inline-block;
+  transform-origin: 0 100%;
+  animation: rise 950ms var(--ease-out) both;
+  animation-delay: calc(var(--c, 0) * 42ms + 120ms);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(104%) rotate(7deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.headline {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--accent-ink);
+  font-size: var(--text-xs);
+  animation: fadeUp 800ms 650ms var(--ease-out) both;
+}
+
+.intro {
+  max-width: 34ch;
+  margin-top: var(--space-4);
+  color: var(--ink-2);
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  line-height: 1.45;
+  animation: fadeUp 800ms 760ms var(--ease-out) both;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  animation: fadeUp 800ms 870ms var(--ease-out) both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* At-a-glance panel */
+
+.panel {
+  grid-column: 1 / -1;
+  min-width: 0;
+  animation: fadeUp 800ms 980ms var(--ease-out) both;
+}
+
+/* An editorial 4:5 portrait with a hairline edge. Its colour treatment is in
+   the image file itself, so the photo looks the same in every browser. */
+.photo {
+  display: block;
+  width: 100%;
+  /* Smaller on phones, so the facts below come up sooner. */
+  max-width: 11.25rem;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  margin-bottom: var(--space-6);
+  object-fit: cover;
+  object-position: 50% 30%;
+  border: 1px solid var(--line-2);
+}
+
+@media (min-width: 40rem) {
+  .photo {
+    max-width: 16rem;
+  }
+}
+
+/* On load, the portrait's frame opens upward, like the project images. */
+@media (prefers-reduced-motion: no-preference) {
+  .photo {
+    animation: photo-open 1100ms var(--ease-out) 900ms both;
+  }
+}
+
+@keyframes photo-open {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+
+.facts {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line-2);
+}
+
+.facts dt {
+  color: var(--muted);
+}
+
+.facts dd {
+  margin-top: 0.125rem;
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin-top: var(--space-1);
+}
+
+/* Just the logos, spaced apart; a 2.5rem hit area keeps them easy to tap. */
+.profile {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  margin-left: -0.6rem;
+  color: var(--ink);
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.profiles .profile + .profile {
+  margin-left: 0;
+}
+
+.profile:hover,
+.profile:focus-visible {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.masthead span {
+  white-space: nowrap;
+}
+
+@media (min-width: 40rem) {
+  .masthead {
+    font-size: var(--text-xs);
+  }
+}
+
+@media (min-width: 60rem) {
+  .stage {
+    align-items: end;
+  }
+
+  .text {
+    grid-column: 1 / span 8;
+  }
+
+  .panel {
+    grid-column: 9 / -1;
+  }
+}

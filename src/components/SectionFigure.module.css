@@ -1,0 +1,162 @@
+.figure {
+  margin-top: var(--space-6);
+}
+
+.figure + .figure {
+  margin-top: var(--space-7);
+}
+
+/* Screenshots: a thin frame so light UI screens sit cleanly on either edition. */
+.shot {
+  padding: clamp(0.375rem, 1vw, 0.625rem);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.panel {
+  padding: clamp(1rem, 3vw, 1.75rem);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.caption {
+  margin-top: var(--space-3);
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.figNo {
+  margin-right: 0.5em;
+  color: var(--ink);
+}
+
+.full {
+  color: var(--accent-ink);
+  white-space: nowrap;
+}
+
+/* Paired bars */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.swatchBase,
+.swatchAccent {
+  width: 0.875rem;
+  height: 0.5rem;
+  border-radius: 2px;
+}
+
+.swatchBase {
+  background: var(--chart-base);
+}
+
+.swatchAccent {
+  background: var(--accent);
+}
+
+.groups {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.groupLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-2);
+  color: var(--ink);
+  font-size: var(--text-base);
+}
+
+.change {
+  color: var(--accent-ink);
+  font-size: var(--text-xs);
+}
+
+.barRow + .barRow {
+  margin-top: 2px;
+}
+
+/* The track leaves room on the right for the label printed after the longest bar. */
+.barTrack {
+  position: relative;
+  display: block;
+  width: calc(100% - 4.5rem);
+  height: 1.25rem;
+}
+
+.barBase,
+.barAccent {
+  position: absolute;
+  top: 0.25rem;
+  left: 0;
+  height: 0.75rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.barBase {
+  background: var(--chart-base);
+}
+
+.barAccent {
+  background: var(--accent);
+}
+
+.barValue {
+  position: absolute;
+  top: 0;
+  padding-left: 0.5rem;
+  color: var(--ink-2);
+  font-size: var(--text-xs);
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+
+/* Entrance: bars grow from zero while their numbers count up */
+/* Only while waiting to scroll into view, and never for reduced motion
+   (the attribute is not set then). */
+
+.barBase,
+.barAccent {
+  transform-origin: left center;
+  transition: transform 900ms var(--ease-out);
+}
+
+[data-motion='waiting'] .barBase,
+[data-motion='waiting'] .barAccent {
+  transform: scaleX(0);
+}
+
+.barRow .barBase,
+.barRow .barAccent {
+  transition-delay: calc(var(--step, 0) * 120ms);
+}
+
+.barValue {
+  transition: opacity 400ms ease calc(var(--step, 0) * 120ms + 300ms);
+}
+
+[data-motion='waiting'] .barValue {
+  opacity: 0;
+}

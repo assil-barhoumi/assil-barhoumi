@@ -1,0 +1,177 @@
+.aside {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.statement {
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--accent-line);
+  color: var(--ink);
+  font-size: clamp(1.625rem, 2.6vw, 2.25rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+}
+
+.main {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin-top: var(--space-7);
+}
+
+@media (min-width: 60rem) {
+  .aside {
+    grid-column: 1 / span 5;
+    align-self: start;
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+  }
+
+  .main {
+    grid-column: 7 / -1;
+    margin-top: 0;
+  }
+}
+
+/* Skills */
+
+/* Toolkit table: area on the left, tools on the right */
+
+.table {
+  min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.row dt {
+  color: var(--muted);
+}
+
+.row dd {
+  color: var(--ink);
+  font-size: var(--text-md);
+  line-height: 1.45;
+}
+
+.quiet dd {
+  color: var(--muted);
+  font-size: var(--text-base);
+}
+
+/* Entrance: each row rises in after the one above it. */
+.row {
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.table[data-motion='waiting'] .row {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+@media (min-width: 60rem) {
+  .row {
+    grid-template-columns: 16rem minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: baseline;
+  }
+}
+
+/* Education */
+
+.group + .group {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.groupTitle {
+  padding-bottom: var(--space-3);
+  color: var(--accent-ink);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.list {
+  border-bottom: 1px solid var(--line);
+}
+
+.entry {
+  row-gap: var(--space-2);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--line);
+}
+
+.certificate {
+  padding-block: var(--space-5);
+}
+
+/* Dates sit in the left column on wide screens, above the title on small ones. */
+.when {
+  grid-column: 1 / -1;
+  color: var(--ink-2);
+}
+
+.body {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.title {
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 350;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.certificate .title {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.institution {
+  margin-top: var(--space-2);
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: 1.4;
+}
+
+.note {
+  margin-top: var(--space-2);
+  color: var(--accent-ink);
+}
+
+.meta {
+  margin-top: var(--space-2);
+  color: var(--muted);
+}
+
+.link {
+  display: inline-block;
+  margin-top: var(--space-3);
+  color: var(--accent-ink);
+}
+
+
+@media (min-width: 60rem) {
+  .when {
+    grid-column: 1 / span 3;
+    padding-top: 0.6rem;
+  }
+
+  .certificate .when {
+    padding-top: 0.35rem;
+  }
+
+  .body {
+    grid-column: 4 / -1;
+  }
+}

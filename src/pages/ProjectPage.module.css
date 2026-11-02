@@ -1,0 +1,360 @@
+.page {
+  padding-bottom: clamp(4rem, 8vw, 6rem);
+}
+
+/* Article head */
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--line-2);
+  color: var(--muted);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--ink-2);
+}
+
+.back:hover {
+  color: var(--ink);
+}
+
+.head {
+  row-gap: var(--space-7);
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.headText {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.title {
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  animation: rise 800ms var(--ease-out) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.standfirst {
+  max-width: 44ch;
+  margin-top: var(--space-6);
+  color: var(--ink-2);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.45;
+}
+
+/* Details box, like an article's information panel. */
+.info {
+  grid-column: 1 / -1;
+  align-self: start;
+  border-top: 1px solid var(--line-2);
+}
+
+.info dl > div {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.info dt {
+  color: var(--muted);
+}
+
+.info dd {
+  color: var(--ink);
+  min-width: 0;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+/* A wide illustration under the title; Fig. 1 follows it. */
+.banner {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+
+@media (min-width: 48rem) {
+  .banner img {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+/* On wide screens the banner is a short strip, so the case study starts sooner. */
+@media (min-width: 60rem) {
+  .banner img {
+    aspect-ratio: 32 / 9;
+  }
+}
+
+.banner + .figure {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.figure {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.figureBox {
+  padding: clamp(1rem, 3vw, 2.5rem);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+}
+
+.figureBox > svg {
+  max-width: 54rem;
+  margin-inline: auto;
+}
+
+.caption {
+  max-width: 90ch;
+  margin-top: var(--space-3);
+  color: var(--muted);
+}
+
+.figNo {
+  margin-right: 0.5em;
+  color: var(--ink);
+}
+
+@media (min-width: 60rem) {
+  .headText {
+    grid-column: 1 / span 8;
+  }
+
+  .info {
+    grid-column: 9 / -1;
+  }
+}
+
+/* Body */
+
+.layout {
+  row-gap: var(--space-6);
+  margin-top: clamp(4rem, 8vw, 6rem);
+}
+
+.toc {
+  display: none;
+}
+
+.content {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.section + .section {
+  margin-top: clamp(3.5rem, 7vw, 5rem);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line-2);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 350;
+  letter-spacing: -0.025em;
+}
+
+.sectionNo {
+  color: var(--accent-ink);
+  font-size: var(--text-xs);
+  letter-spacing: 0;
+  transform: translateY(-0.6em);
+}
+
+.note {
+  margin-top: var(--space-4);
+  color: var(--muted);
+}
+
+@media (min-width: 60rem) {
+  .toc {
+    display: block;
+    grid-column: 1 / span 3;
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+    align-self: start;
+  }
+
+  .content {
+    grid-column: 4 / span 8;
+  }
+}
+
+.tocTitle {
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line-2);
+  color: var(--muted);
+}
+
+.toc ol {
+  display: grid;
+}
+
+.toc button {
+  display: flex;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0.5rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  text-align: left;
+  line-height: 1.4;
+  transition: color 150ms ease;
+}
+
+.toc button:hover {
+  color: var(--ink);
+}
+
+.tocNo {
+  min-width: 1.25rem;
+  color: var(--accent-ink);
+}
+
+/* Flow */
+
+.flow {
+  display: grid;
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--line);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.marker {
+  color: var(--muted);
+  padding-top: 0.3rem;
+}
+
+.stepTitle {
+  font-size: var(--text-md);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.stepText {
+  margin-top: var(--space-1);
+  color: var(--ink-2);
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+
+/* Item list (workstreams, planned analyses) */
+
+.items {
+  margin-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.item {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.itemTerm {
+  font-size: var(--text-md);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.itemText {
+  margin-top: var(--space-1);
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* Pager */
+
+.pager {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: clamp(4rem, 8vw, 6rem);
+}
+
+.pagerLink {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--line-2);
+  text-decoration: none;
+}
+
+.pagerLabel {
+  color: var(--muted);
+  transition: color 150ms ease;
+}
+
+.pagerTitle {
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  font-weight: 350;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.pagerLink:hover .pagerLabel {
+  color: var(--accent-ink);
+}
+
+.pagerNext {
+  text-align: right;
+  justify-items: end;
+}
+
+@media (min-width: 48rem) {
+  .pager {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+  }
+}

@@ -1,0 +1,100 @@
+/* The email on its own line, then the profile logos and the CV button. */
+.contact {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.email {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+}
+
+.address {
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+/* A light text button rather than a box. */
+.copy {
+  padding: 0.25rem 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: none;
+  color: var(--accent-ink);
+  font-size: var(--text-2xs);
+  cursor: pointer;
+}
+
+.copy:hover {
+  color: var(--ink);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+/* Just the logo, with a 2.75rem area to tap. */
+.link {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  color: var(--ink);
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.links li:first-child .link {
+  margin-left: -0.5rem;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--accent-ink);
+  transform: translateY(-2px);
+}
+
+/* The CV as the one filled button: after the logos, or on its own line on phones. */
+.cvItem {
+  flex-basis: 100%;
+}
+
+@media (min-width: 40rem) {
+  .cvItem {
+    flex-basis: auto;
+    margin-left: var(--space-3);
+  }
+}
+
+.cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: var(--text-xs);
+  text-decoration: none;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.cv:hover,
+.cv:focus-visible {
+  background: transparent;
+  color: var(--ink);
+}
+
+.copyError {
+  color: var(--ink-2);
+}
+

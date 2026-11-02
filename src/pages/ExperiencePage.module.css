@@ -1,0 +1,88 @@
+/* The internship details page shares its head, info panel and pager with the
+   case-study page (ProjectPage.module.css); these are its own parts. */
+
+.body {
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+
+.section {
+  max-width: 60rem;
+}
+
+.section + .section {
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.sectionTitle {
+  margin-bottom: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line-2);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 350;
+  letter-spacing: -0.025em;
+}
+
+.highlights {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 46rem;
+}
+
+.highlights li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: 1.55;
+}
+
+.highlights li::before {
+  content: '';
+  position: absolute;
+  top: 0.8em;
+  left: 0;
+  width: 0.75rem;
+  border-top: 1px solid var(--accent-line);
+}
+
+/* Screens from the internship report: one per row on phones, side by side when there is room. */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  align-items: start;
+  gap: var(--space-6) var(--space-5);
+}
+
+.shot {
+  min-width: 0;
+}
+
+.shotLink {
+  display: block;
+  padding: 0.3rem;
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  transition: border-color 200ms ease;
+}
+
+.shotLink:hover,
+.shotLink:focus-visible {
+  border-color: var(--accent-line);
+}
+
+.shotLink img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-2xs);
+  line-height: 1.5;
+}
+
+.figNo {
+  color: var(--ink);
+}

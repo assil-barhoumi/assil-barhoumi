@@ -1,0 +1,211 @@
+/* Buttons */
+
+.button {
+  translate: var(--mag-x, 0px) var(--mag-y, 0px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-height: 3rem;
+  padding: 0 1.25rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    translate 450ms var(--ease-out);
+}
+
+/* Magnetic: while the mouse is over it, the button leans towards it (lib/magnetic.ts). */
+.button[data-magnetic] {
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    translate 120ms linear;
+}
+
+.after {
+  transition: transform 250ms var(--ease-out);
+}
+
+.button:hover .after {
+  transform: translateX(3px);
+}
+
+.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.primary:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.ghost {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.ghost:hover {
+  border-color: var(--ink);
+  background: var(--accent-soft);
+}
+
+/* Status */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.status svg {
+  flex: none;
+  color: var(--accent);
+}
+
+
+/* Inline list */
+
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0;
+  color: var(--ink-2);
+}
+
+.inline li:not(:last-child)::after {
+  content: '/';
+  margin: 0 0.6em;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* Missing content markers */
+
+
+
+/* Section shell */
+
+.section {
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+/* The running rule at the top of every section: number, then label. */
+.rule {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-top: var(--space-3);
+  color: var(--muted);
+  view-timeline-name: --rule;
+}
+
+/* The line itself, drawn left to right as the section scrolls into view. */
+.rule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--line-2);
+  transform-origin: left center;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rule::before {
+      animation: rule-draw linear both;
+      animation-timeline: --rule;
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.ruleNumber {
+  color: var(--accent-ink);
+}
+
+.head {
+  row-gap: var(--space-5);
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+
+.title {
+  grid-column: 1 / -1;
+  font-size: clamp(2.75rem, 7vw, 5.5rem);
+  font-weight: 350;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.lead {
+  grid-column: 1 / -1;
+  max-width: 46ch;
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: 1.55;
+}
+
+/* Section headings: each word rises from behind a mask in turn, the lead follows. */
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-block: 0.06em 0.16em;
+  margin-block: -0.06em -0.16em;
+}
+
+.wordInner {
+  display: inline-block;
+  transition: transform 900ms var(--ease-out);
+  transition-delay: calc(var(--w, 0) * 70ms);
+}
+
+.lead {
+  transition:
+    opacity 700ms ease 280ms,
+    transform 700ms var(--ease-out) 280ms;
+}
+
+[data-motion='waiting'] .wordInner {
+  transform: translateY(110%) rotate(4deg);
+}
+
+[data-motion='waiting'] .lead {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+@media (min-width: 60rem) {
+  .title {
+    grid-column: 1 / span 8;
+  }
+
+  .lead {
+    grid-column: 9 / -1;
+    align-self: end;
+  }
+}
